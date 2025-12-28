@@ -25,14 +25,14 @@ jobs:
         # - ci.yml  
         # - release.yml
         board:
-          - esp32dev
+          # - esp32dev
           - lilygo-t-display
-          - esp32-geek
-          - m5stack-core-esp32
-          - m5stack-cores3
+          # - esp32-geek
+          # - m5stack-core-esp32
+          # - m5stack-cores3
           - m5stack-cardputer
-          - m5stick-c-plus
-          - m5stick-c-plus2
+          # - m5stick-c-plus
+          # - m5stick-c-plus2
 
     steps:
       - uses: actions/checkout@v4
