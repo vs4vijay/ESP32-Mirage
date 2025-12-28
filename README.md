@@ -1,5 +1,9 @@
 # ESP32-Mirage
 
+[![PR Gate](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/pr-gate.yml/badge.svg)](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/pr-gate.yml)
+[![CI Build](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/ci.yml/badge.svg)](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/ci.yml)
+[![Release](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/release.yml/badge.svg)](https://github.com/vs4vijay/ESP32-Mirage/actions/workflows/release.yml)
+
 ESP32-based satellite image clock and environmental monitoring system with modular, configurable features.
 
 ## Features
@@ -28,8 +32,23 @@ ESP32-Mirage uses a **fully modular architecture** where each feature is impleme
 
 ## Hardware Requirements
 
-- **ESP32 Development Board** (ESP32-DevKitC or similar)
-- **TFT Display** (ST7735/ST7789 or compatible, typically 240x240 or 240x320)
+ESP32-Mirage supports multiple ESP32-based boards out of the box:
+
+### Supported Boards
+- ✅ **Generic ESP32-DevKit** - ESP32-DevKitC with external display
+- ✅ **LilyGo T-Display** - ESP32 with built-in 240x135 display
+- ✅ **ESP32 Geek** - ESP32-C3 with built-in 240x240 display
+- ✅ **M5Stack Core/Core2** - All-in-one ESP32 with 320x240 display
+- ✅ **M5Stack CoreS3** - ESP32-S3 with touch display
+- ✅ **M5Stack Cardputer** - ESP32-S3 with display and keyboard
+- ✅ **M5StickC Plus** - Ultra-compact with display and battery
+- ✅ **M5StickC Plus2** - Improved M5StickC Plus with USB-C
+
+See [MULTI_BOARD_SUPPORT.md](MULTI_BOARD_SUPPORT.md) for detailed board specifications and pin configurations.
+
+### Basic Requirements
+- **ESP32-based Board** (see supported boards above)
+- **TFT Display** (built-in or external, depending on board)
 - **Buzzer/Speaker** (optional, for sound alerts)
 - **WiFi Connection** (for data fetching)
 
@@ -51,7 +70,19 @@ GPIO 25   -->  Buzzer (optional)
 
 ## Software Setup
 
-### Using PlatformIO (Recommended)
+### Option 1: Pre-built Firmware (Easiest)
+
+Download pre-built firmware for your board from the [Releases page](https://github.com/vs4vijay/ESP32-Mirage/releases):
+
+1. **Download** the `.bin` file for your board
+2. **Flash** using esptool:
+   ```bash
+   pip install esptool
+   esptool.py --port /dev/ttyUSB0 write_flash 0x0 ESP32-Mirage-VERSION-BOARD.bin
+   ```
+3. **Configure** WiFi and API keys on first boot
+
+### Option 2: Build from Source with PlatformIO (Recommended)
 
 1. **Install PlatformIO** (VS Code extension or CLI)
 
@@ -68,9 +99,18 @@ GPIO 25   -->  Buzzer (optional)
    - Configure module enable/disable flags
    - Adjust update intervals
 
-4. **Build and upload**:
+4. **Build and upload for your board**:
    ```bash
-   pio run --target upload
+   # For generic ESP32-DevKit
+   pio run -e esp32dev -t upload
+   
+   # For LilyGo T-Display
+   pio run -e lilygo-t-display -t upload
+   
+   # For M5Stack Cardputer
+   pio run -e m5stack-cardputer -t upload
+   
+   # See MULTI_BOARD_SUPPORT.md for all boards
    ```
 
 5. **Monitor serial output**:
@@ -78,7 +118,7 @@ GPIO 25   -->  Buzzer (optional)
    pio device monitor
    ```
 
-### Using Arduino IDE
+### Option 3: Using Arduino IDE
 
 1. **Install ESP32 board support** in Arduino IDE
 2. **Install required libraries**:
@@ -250,6 +290,18 @@ Contributions are welcome! Here are some ways to contribute:
 - 📖 Improve documentation
 - 🎨 Create display themes or layouts
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Documentation
+
+- 📖 [Getting Started Guide](GETTING_STARTED.md) - First-time setup instructions
+- 🔧 [Hardware Setup](HARDWARE.md) - Wiring and component details
+- 🎛️ [Multi-Board Support](MULTI_BOARD_SUPPORT.md) - Supported boards and configurations
+- 🚀 [CI/CD Workflows](CI_CD_WORKFLOWS.md) - Build automation and releases
+- 🏗️ [Architecture](ARCHITECTURE.md) - System design and module architecture
+- 👨‍💻 [Developer Guide](DEVELOPER_GUIDE.md) - Development and contribution guide
+- 🔑 [API Keys Guide](API_KEYS_GUIDE.md) - How to obtain required API keys
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -262,12 +314,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Roadmap
 
+- [x] Support for multiple ESP32 boards (DevKit, LilyGo, M5Stack, etc.)
+- [x] CI/CD pipelines with automated builds and releases
 - [ ] Add web interface for configuration
 - [ ] Implement multiple display themes
 - [ ] Add MQTT support for home automation integration
 - [ ] Create mobile app for remote monitoring
 - [ ] Add data logging and historical graphs
-- [ ] Support for multiple display types
 - [ ] OTA (Over-The-Air) updates
 
 ## Support

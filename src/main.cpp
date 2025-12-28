@@ -192,6 +192,15 @@ void setup() {
     Serial.println("╚══════════════════════════════════════╝");
     Serial.println();
     
+    // Display board information
+    Serial.printf("[Board] Detected: %s\n", BOARD_NAME);
+    #if HAS_DISPLAY
+    Serial.printf("[Display] Screen: %dx%d\n", SCREEN_WIDTH, SCREEN_HEIGHT);
+    #else
+    Serial.println("[Display] No display (headless mode)");
+    #endif
+    Serial.println();
+    
     // Setup WiFi
     setupWiFi();
     
