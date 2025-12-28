@@ -33,6 +33,7 @@ jobs:
           - m5stack-cores3
           - m5stack-cardputer
           - m5stick-c-plus
+          - m5stick-c-plus2
 
     steps:
       - uses: actions/checkout@v4
@@ -97,7 +98,7 @@ jobs:
         run: |
           set -x
           # Check that all expected board artifacts are present
-          boards=("esp32dev" "lilygo-t-display" "esp32-geek" "m5stack-core-esp32" "m5stack-cores3" "m5stack-cardputer" "m5stick-c-plus")
+          boards=("esp32dev" "lilygo-t-display" "esp32-geek" "m5stack-core-esp32" "m5stack-cores3" "m5stack-cardputer" "m5stick-c-plus" "m5stick-c-plus2")
           
           for board in "${boards[@]}"; do
             if [ -f "artifacts/firmware-${board}/firmware.bin" ]; then

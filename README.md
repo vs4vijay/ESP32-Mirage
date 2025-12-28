@@ -42,6 +42,7 @@ ESP32-Mirage supports multiple ESP32-based boards out of the box:
 - ✅ **M5Stack CoreS3** - ESP32-S3 with touch display
 - ✅ **M5Stack Cardputer** - ESP32-S3 with display and keyboard
 - ✅ **M5StickC Plus** - Ultra-compact with display and battery
+- ✅ **M5StickC Plus2** - Improved M5StickC Plus with USB-C
 
 See [MULTI_BOARD_SUPPORT.md](MULTI_BOARD_SUPPORT.md) for detailed board specifications and pin configurations.
 

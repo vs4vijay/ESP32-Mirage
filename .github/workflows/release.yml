@@ -35,6 +35,7 @@ jobs:
           - m5stack-cores3
           - m5stack-cardputer
           - m5stick-c-plus
+          - m5stick-c-plus2
 
     steps:
       - uses: actions/checkout@v4
@@ -197,6 +198,7 @@ jobs:
           | M5Stack CoreS3 | `ESP32-Mirage-${{ steps.version.outputs.version }}-m5stack-cores3.bin` | M5Stack CoreS3 |
           | M5Stack Cardputer | `ESP32-Mirage-${{ steps.version.outputs.version }}-m5stack-cardputer.bin` | M5Stack Cardputer |
           | M5StickC Plus | `ESP32-Mirage-${{ steps.version.outputs.version }}-m5stick-c-plus.bin` | M5StickC Plus |
+          | M5StickC Plus2 | `ESP32-Mirage-${{ steps.version.outputs.version }}-m5stick-c-plus2.bin` | M5StickC Plus2 |
           
           ## 📥 Installation
           

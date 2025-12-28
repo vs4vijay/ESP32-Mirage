@@ -82,6 +82,16 @@ ESP32-Mirage now supports multiple ESP32-based boards out of the box. Each board
 
 **Build command**: `pio run -e m5stick-c-plus`
 
+### 8. M5StickC Plus2 (`m5stick-c-plus2`)
+- **Board**: M5StickC Plus2
+- **Display**: Built-in ST7789 TFT
+- **Screen**: 240x135 pixels
+- **Features**: Improved version of Plus, better battery, USB-C
+- **Library**: M5Unified library (modern unified API for newer M5Stack devices)
+- **Note**: Uses M5Unified instead of a dedicated M5StickCPlus2 library
+
+**Build command**: `pio run -e m5stick-c-plus2`
+
 ## Building for Multiple Boards
 
 ### Build All Boards
@@ -228,6 +238,7 @@ lib_deps =
 | M5Stack CoreS3 | ESP32-S3 | 320x240 (touch) | Medium | Yes | No | $$$$ |
 | M5Stack Cardputer | ESP32-S3 | 240x135 | Small | Yes | Yes | $$$ |
 | M5StickC Plus | ESP32 | 240x135 | Tiny | Yes | No | $$ |
+| M5StickC Plus2 | ESP32 | 240x135 | Tiny | Yes | No | $$ |
 
 ## Resources
 

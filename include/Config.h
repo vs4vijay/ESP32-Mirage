@@ -55,6 +55,10 @@
     #define BOARD_NAME "M5StickC Plus"
     #define HAS_DISPLAY true
     #define USE_M5STICK true
+#elif defined(BOARD_M5STICK_C_PLUS2)
+    #define BOARD_NAME "M5StickC Plus2"
+    #define HAS_DISPLAY true
+    #define USE_M5UNIFIED true
 #elif defined(BOARD_ESP32DEV)
     #define BOARD_NAME "ESP32-DevKit"
     #define HAS_DISPLAY true
