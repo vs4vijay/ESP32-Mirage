@@ -35,8 +35,6 @@ jobs:
           - m5stack-cores3
           - m5stack-cardputer
           - m5stick-c-plus
-          - m5stick-c-plus2
-          - m5stack-atom
 
     steps:
       - uses: actions/checkout@v4
@@ -124,7 +122,7 @@ jobs:
           echo "| Board | Status | Size |" >> $GITHUB_STEP_SUMMARY
           echo "|-------|--------|------|" >> $GITHUB_STEP_SUMMARY
           
-          boards=("esp32dev" "lilygo-t-display" "esp32-geek" "m5stack-core-esp32" "m5stack-cores3" "m5stack-cardputer" "m5stick-c-plus" "m5stick-c-plus2" "m5stack-atom")
+          boards=("esp32dev" "lilygo-t-display" "esp32-geek" "m5stack-core-esp32" "m5stack-cores3" "m5stack-cardputer" "m5stick-c-plus")
           
           all_valid=true
           for board in "${boards[@]}"; do

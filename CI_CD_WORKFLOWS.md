@@ -68,8 +68,6 @@ All workflows build for these boards:
 - `m5stack-cores3` - M5Stack CoreS3
 - `m5stack-cardputer` - M5Stack Cardputer
 - `m5stick-c-plus` - M5StickC Plus
-- `m5stick-c-plus2` - M5StickC Plus2
-- `m5stack-atom` - M5Stack Atom
 
 ## Viewing Build Results
 
