@@ -83,7 +83,13 @@ jobs:
           
           # Detect chip type based on board
           case "${{ matrix.board }}" in
-            esp32-geek|m5stack-cardputer|m5stack-cores3)
+            esp32-geek)
+              chip="esp32c3"
+              bootloader_offset="0x0000"
+              partition_offset="0x8000"
+              app_offset="0x10000"
+              ;;
+            m5stack-cardputer|m5stack-cores3)
               chip="esp32s3"
               bootloader_offset="0x0000"
               partition_offset="0x8000"
