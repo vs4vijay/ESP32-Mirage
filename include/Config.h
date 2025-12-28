@@ -6,12 +6,72 @@
 #define WIFI_PASSWORD ""
 #define WIFI_TIMEOUT_MS 20000
 
-// Display Configuration
+// Display Configuration - Board-specific defaults
+// These can be overridden by platformio.ini build flags
+
+// Default ESP32-DevKit pins (if not defined by board)
+#ifndef TFT_CS
 #define TFT_CS 5
+#endif
+
+#ifndef TFT_RST
 #define TFT_RST 17
+#endif
+
+#ifndef TFT_DC
 #define TFT_DC 16
+#endif
+
+#ifndef SCREEN_WIDTH
 #define SCREEN_WIDTH 240
+#endif
+
+#ifndef SCREEN_HEIGHT
 #define SCREEN_HEIGHT 240
+#endif
+
+// Board-specific configurations
+#if defined(BOARD_LILYGO_T_DISPLAY)
+    #define BOARD_NAME "LilyGo T-Display"
+    #define HAS_DISPLAY true
+    #define USE_TFT_ESPI true
+#elif defined(BOARD_ESP32_GEEK)
+    #define BOARD_NAME "ESP32 Geek"
+    #define HAS_DISPLAY true
+    #define USE_TFT_ESPI true
+#elif defined(BOARD_M5STACK)
+    #define BOARD_NAME "M5Stack"
+    #define HAS_DISPLAY true
+    #define USE_M5STACK true
+#elif defined(BOARD_M5STACK_CORES3)
+    #define BOARD_NAME "M5Stack CoreS3"
+    #define HAS_DISPLAY true
+    #define USE_M5UNIFIED true
+#elif defined(BOARD_M5STACK_CARDPUTER)
+    #define BOARD_NAME "M5Stack Cardputer"
+    #define HAS_DISPLAY true
+    #define USE_M5UNIFIED true
+#elif defined(BOARD_M5STICK_C_PLUS)
+    #define BOARD_NAME "M5StickC Plus"
+    #define HAS_DISPLAY true
+    #define USE_M5STICK true
+#elif defined(BOARD_M5STICK_C_PLUS2)
+    #define BOARD_NAME "M5StickC Plus2"
+    #define HAS_DISPLAY true
+    #define USE_M5STICK true
+#elif defined(BOARD_M5STACK_ATOM)
+    #define BOARD_NAME "M5Stack Atom"
+    #define HAS_DISPLAY false
+    #define USE_M5ATOM true
+#elif defined(BOARD_ESP32DEV)
+    #define BOARD_NAME "ESP32-DevKit"
+    #define HAS_DISPLAY true
+    #define USE_ADAFRUIT_GFX true
+#else
+    #define BOARD_NAME "Generic ESP32"
+    #define HAS_DISPLAY true
+    #define USE_ADAFRUIT_GFX true
+#endif
 
 // Module Enable/Disable Configuration
 #define ENABLE_SATELLITE_IMAGE_CLOCK true
