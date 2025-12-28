@@ -43,7 +43,7 @@ public:
                      "&from_date=" + getCurrentDate() + "&to_date=" + getFutureDate(30);
         
         http.begin(url);
-        http.addHeader("Authorization", "Bearer YOUR_ASTRONOMY_API_KEY");
+        http.addHeader("Authorization", "Basic " + String(ASTRONOMICAL_API_KEY));
         int httpCode = http.GET();
         
         if (httpCode == 200) {
@@ -85,12 +85,31 @@ public:
     
     String getCurrentDate() {
         // Return current date in YYYY-MM-DD format
-        return "2024-01-01";
+        struct tm timeinfo;
+        if (!getLocalTime(&timeinfo)) {
+            return "2024-01-01"; // Fallback if time not available
+        }
+        
+        char buffer[11];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d", &timeinfo);
+        return String(buffer);
     }
     
     String getFutureDate(int daysAhead) {
         // Return date N days ahead in YYYY-MM-DD format
-        return "2024-01-31";
+        struct tm timeinfo;
+        if (!getLocalTime(&timeinfo)) {
+            return "2024-01-31"; // Fallback if time not available
+        }
+        
+        // Add days (simplified, doesn't handle month/year boundaries perfectly)
+        time_t now = mktime(&timeinfo);
+        now += daysAhead * 86400; // 86400 seconds per day
+        struct tm* future = localtime(&now);
+        
+        char buffer[11];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%d", future);
+        return String(buffer);
     }
     
     bool isEnabled() const override {

@@ -36,14 +36,18 @@ public:
         
         Serial.println("[Calendar] Fetching upcoming events...");
         
-        // Fetch from Google Calendar API or similar
+        // Note: Google Calendar API requires OAuth 2.0, not simple API key
+        // This is a placeholder implementation. For production, use OAuth 2.0 flow
+        // or consider using IFTTT/Zapier webhooks as an alternative
         HTTPClient http;
+        
+        // This will fail with simple API key - OAuth 2.0 required
         String url = "https://www.googleapis.com/calendar/v3/calendars/primary/events?key=" + 
                      String(CALENDAR_API_KEY) + "&timeMin=" + getCurrentTimeISO() +
                      "&maxResults=5&orderBy=startTime&singleEvents=true";
         
         http.begin(url);
-        http.addHeader("Authorization", "Bearer " + String(CALENDAR_API_KEY));
+        // Note: Proper implementation needs OAuth 2.0 Bearer token, not API key
         int httpCode = http.GET();
         
         if (httpCode == 200) {
@@ -74,9 +78,15 @@ public:
     }
     
     String getCurrentTimeISO() {
-        // Return current time in ISO format
-        // For simplicity, return a placeholder
-        return "2024-01-01T00:00:00Z";
+        // Get current time in ISO 8601 format (RFC 3339)
+        struct tm timeinfo;
+        if (!getLocalTime(&timeinfo)) {
+            return "2024-01-01T00:00:00Z"; // Fallback if time not available
+        }
+        
+        char buffer[25];
+        strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%SZ", &timeinfo);
+        return String(buffer);
     }
     
     bool isEnabled() const override {

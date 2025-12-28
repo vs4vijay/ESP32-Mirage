@@ -11,12 +11,24 @@ private:
     bool planeAlertActive;
     bool weatherAlertActive;
     bool aqiAlertActive;
+    unsigned long beepStartTime;
+    bool beeping;
     
     void beep(int duration) {
         if (!enabled) return;
-        tone(BUZZER_PIN, 1000, duration);
-        delay(duration);
-        noTone(BUZZER_PIN);
+        
+        // Non-blocking beep using tone without delay
+        tone(BUZZER_PIN, 1000);
+        beepStartTime = millis();
+        beeping = true;
+        // Note: Call stopBeepIfNeeded() in update() or main loop
+    }
+    
+    void stopBeepIfNeeded() {
+        if (beeping && (millis() - beepStartTime >= 200)) {
+            noTone(BUZZER_PIN);
+            beeping = false;
+        }
     }
     
 public:
@@ -25,7 +37,9 @@ public:
         enabled(ENABLE_SOUND_ALERTS),
         planeAlertActive(false),
         weatherAlertActive(false),
-        aqiAlertActive(false) {}
+        aqiAlertActive(false),
+        beepStartTime(0),
+        beeping(false) {}
     
     bool begin() override {
         if (!enabled) {
@@ -39,7 +53,8 @@ public:
     
     void update() override {
         // Sound alerts are triggered by other modules, not on a schedule
-        // This method can be used for periodic alert status checks
+        // Stop beep if duration has elapsed
+        stopBeepIfNeeded();
     }
     
     bool isEnabled() const override {
@@ -64,8 +79,6 @@ public:
         if (distance < ALERT_PLANE_DISTANCE_KM && !planeAlertActive) {
             Serial.printf("[SoundAlerts] ALERT: Plane nearby (%.2f km)\n", distance);
             beep(200);
-            delay(100);
-            beep(200);
             planeAlertActive = true;
         } else if (distance >= ALERT_PLANE_DISTANCE_KM) {
             planeAlertActive = false;
@@ -77,10 +90,6 @@ public:
         
         if (severity >= ALERT_WEATHER_SEVERITY && !weatherAlertActive) {
             Serial.printf("[SoundAlerts] ALERT: Severe weather (severity %d)\n", severity);
-            beep(300);
-            delay(100);
-            beep(300);
-            delay(100);
             beep(300);
             weatherAlertActive = true;
         } else if (severity < ALERT_WEATHER_SEVERITY) {
@@ -104,8 +113,6 @@ public:
         if (!enabled) return;
         
         Serial.printf("[SoundAlerts] Playing alert: %s\n", alertType);
-        beep(150);
-        delay(50);
         beep(150);
     }
 };

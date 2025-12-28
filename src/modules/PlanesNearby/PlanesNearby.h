@@ -61,8 +61,8 @@ public:
                 float lon = state[5];
                 String callsign = state[1].as<String>();
                 
-                // Calculate distance (simplified)
-                float distance = sqrt(pow(lat - LATITUDE, 2) + pow(lon - LONGITUDE, 2)) * 111.0;
+                // Calculate distance using Haversine formula for accuracy
+                float distance = calculateDistance(LATITUDE, LONGITUDE, lat, lon);
                 
                 if (distance < nearestPlaneDistance) {
                     nearestPlaneDistance = distance;
@@ -106,6 +106,33 @@ public:
     
     String getNearestCallsign() const {
         return nearestPlaneCallsign;
+    }
+    
+private:
+    /**
+     * Calculate distance between two GPS coordinates using Haversine formula
+     * @param lat1 Latitude of first point
+     * @param lon1 Longitude of first point
+     * @param lat2 Latitude of second point
+     * @param lon2 Longitude of second point
+     * @return Distance in kilometers
+     */
+    float calculateDistance(float lat1, float lon1, float lat2, float lon2) {
+        const float R = 6371.0; // Earth's radius in km
+        
+        // Convert to radians
+        float dLat = (lat2 - lat1) * PI / 180.0;
+        float dLon = (lon2 - lon1) * PI / 180.0;
+        lat1 = lat1 * PI / 180.0;
+        lat2 = lat2 * PI / 180.0;
+        
+        // Haversine formula
+        float a = sin(dLat/2) * sin(dLat/2) +
+                  cos(lat1) * cos(lat2) * 
+                  sin(dLon/2) * sin(dLon/2);
+        float c = 2 * atan2(sqrt(a), sqrt(1-a));
+        
+        return R * c;
     }
 };
 
