@@ -59,7 +59,8 @@
     },
     "astronomicalEvents": {
       "enabled": true,
-      "updateInterval": 86400000
+      "updateInterval": 86400000,
+      "apiKey": "YOUR_ASTRONOMY_API_KEY"
     }
   },
   "display": {

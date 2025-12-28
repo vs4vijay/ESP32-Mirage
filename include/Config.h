@@ -44,6 +44,7 @@
 #define NEWS_API_KEY ""
 #define CALENDAR_API_KEY ""
 #define PLANES_API_KEY ""
+#define ASTRONOMICAL_API_KEY ""
 
 // Location Configuration
 #define LATITUDE 0.0
