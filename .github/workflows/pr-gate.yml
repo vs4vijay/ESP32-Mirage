@@ -21,6 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # NOTE: When adding a new board, update this list in all three workflow files:
+        # - pr-gate.yml
+        # - ci.yml  
+        # - release.yml
         board:
           - esp32dev
           - lilygo-t-display
